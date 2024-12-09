@@ -4,7 +4,7 @@ import Textform from './components/TextForm';
 import About from './components/About';
 import React, { useState } from 'react';
 import Alert from './components/Alert';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -34,13 +34,23 @@ function App() {
 
   return (
   <>
-   <Navbar title="TextUtils" abouttext="about TextUtils" mode={mode}  toggleMode={toggleMode} />
+  <Router>
+   <Navbar title="TextUtils" abouttext="about" mode={mode}  toggleMode={toggleMode} />
   <Alert alert={alert}/>
     <div className="container my-3">
-       <Textform showAlert={showAlert} heading="Try TextUtils - word counter, character counter, remove extra spaces" mode={mode} />
+    <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+          <Textform showAlert={showAlert} heading="Try TextUtils - word counter, character counter, remove extra spaces" mode={mode} />
+       </Route>
+        </Switch>       
   </div>
+  </Router>
   </>
   );
 }
 
 export default App;
+
